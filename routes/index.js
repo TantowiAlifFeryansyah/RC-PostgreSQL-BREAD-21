@@ -1,9 +1,15 @@
 var express = require('express');
 var router = express.Router();
+var moment = require('moment');
 
 /* GET home page. */
+module.exports = function(db){
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  db.query(`SELECT * FROM siswa`,(err, data)=>{
+    if(err) return console.log(`ini ${err}`);
+  res.render('list',{data: data.rows, moment});
+})
 });
 
-module.exports = router;
+return router;
+}
