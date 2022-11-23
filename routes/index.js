@@ -11,5 +11,21 @@ router.get('/', function(req, res, next) {
 })
 });
 
+router.get('/add', function(req, res, next) {
+res.render('add');
+});
+
+router.post('/add', function(req, res, next) {
+  db.query(`INSERT INTO siswa (string, integer, float, date, boolean) VALUES ($1, $2, $3, $4, $5)`,[req.body.string, req.body.integer, req.body.float, req.body.date, req.body.boolean],(err, data)=>{
+    if(err) return console.log(`ini ${err}`);
+  res.redirect('/')
+})
+});
+
+router.get('/edit', function(req, res, next) {
+  res.render('edit');
+  });
+
+
 return router;
 }
