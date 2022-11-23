@@ -5,9 +5,17 @@ var moment = require('moment');
 /* GET home page. */
 module.exports = function (db) {
   router.get('/', function (req, res, next) {
-    db.query(`SELECT * FROM siswa`, (err, data) => {
+    const page = req.query.page || 1;
+    const limit = 3;
+    const offset = (page - 1) * limit
+    db.query(`SELECT COUNT(*) AS total FROM siswa`, (err,data) => {
       if (err) return console.log(`ini ${err}`);
-      res.render('list', { data: data.rows, moment });
+      const total = data.rows[0].total
+      const totalpages = Math.ceil(total / limit)
+      db.query(`SELECT * FROM siswa LIMIT $1 OFFSET $2`,[limit, offset], (err, data) => {
+        if (err) return console.log(`ini ${err}`);
+        res.render('list', { data: data.rows, moment, page, totalpages, offset });
+      })
     })
   });
 
@@ -22,10 +30,6 @@ module.exports = function (db) {
     })
   });
 
-  router.get('/edit', function (req, res, next) {
-    res.render('edit');
-  });
-
   router.get('/delete/:id', function (req, res, next) {
     const index = req.params.id
     db.query(`delete FROM siswa WHERE id = $1`, [index], (err, rows) => {
@@ -33,6 +37,23 @@ module.exports = function (db) {
       res.redirect('/')
     })
   });
+
+  router.get('/edit/:id', function (req, res, next) {
+    const index = req.params.id
+    db.query(`SELECT * FROM siswa WHERE id = $1`, [index], (err, data) => {
+      if (err) return console.log('gagal ambil data', err);
+      res.render('edit', { data: data.rows, moment });
+    })
+  });
+
+  router.post('/edit/:id', function (req, res, next) {
+    const index = req.params.id
+    db.query(`UPDATE siswa SET string = $1, integer = $2, float = $3, date = $4, boolean = $5 WHERE id = $6`, [req.body.string, req.body.integer, req.body.float, req.body.date, req.body.boolean,index], (err, data) => {
+      if (err) return console.log('gagal ambil data', err);
+      res.redirect('/');
+    })
+  });
+
 
   return router;
 }

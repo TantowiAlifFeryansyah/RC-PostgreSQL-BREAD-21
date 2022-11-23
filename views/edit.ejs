@@ -1,40 +1,41 @@
 <%- include('partials/header') %>
 <div class="container mt-4">
   <h2>Edit Data</h2>
-  <form action="/add" method="post">
+  <form action="" method="post">
 
+    <% data.forEach((item, index) => { %>
     <div class="row mb-3">
         <label for="id" class="col-sm-2 col-form-label">ID</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="id" name="id" placeholder="ID" disableb/>
+          <input type="text" class="form-control" id="id" name="id" placeholder="ID" value="<%= item.id%>" disabled/>
         </div>
       </div>
 
     <div class="row mb-3">
       <label for="string" class="col-sm-2 col-form-label">String</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="string" name="string" placeholder="String"/>
+        <input type="text" class="form-control" id="string" name="string" placeholder="String" value="<%= item.string%>"/>
       </div>
     </div>
 
     <div class="row mb-3">
         <label for="integer" class="col-sm-2 col-form-label">Integer</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="integer" name="integer" placeholder="Integer"/>
+          <input type="text" class="form-control" id="integer" name="integer" placeholder="Integer" value="<%= item.integer%>"/>
         </div>
       </div>
 
       <div class="row mb-3">
         <label for="float" class="col-sm-2 col-form-label">Float</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="float" name="float" placeholder="Float"/>
+          <input type="text" class="form-control" id="float" name="float" placeholder="Float" value="<%= item.float%>"/>
         </div>
       </div>
 
       <div class="row mb-3">
         <label for="date" class="col-sm-2 col-form-label">Date</label>
         <div class="col-sm-10">
-          <input type="date" class="form-control" id="date" name="date" placeholder="Date"/>
+          <input type="date" class="form-control" id="date" name="date" placeholder="Date" value="<%= moment(item.date).format('YYYY-MM-DD') %>"/>
         </div>
       </div>
 
@@ -43,11 +44,12 @@
         <div class="col-sm-10">
           <select name="boolean" class="form-select" id="boolean" >
             <option selected disabled>Choose the boolean ...</option>
-            <option value="true">True</option>
-            <option value="false">False</option>
+            <option value=true <%=item.boolean==1 ? 'selected' : '' %>>True</option>
+            <option value=false <%=item.boolean==0 ? 'selected' : '' %>>False</option>
           </select>
          </div>
       </div>
+      <% }) %>
 
     <button type="submit" class="btn btn-primary">Update</button>
     <a href="/" class="btn btn-warning">Back</a>
