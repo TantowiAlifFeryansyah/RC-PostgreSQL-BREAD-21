@@ -52,10 +52,10 @@ module.exports = function (db) {
     }
 
     if (req.query.boolean && req.query.booleancheck) {
+      console.log(req.query.boolean);
       params.push(`boolean = $${count++}`)
-      values.push(req.query.booelan)
+      values.push(req.query.boolean)
     }
-
     // pagination
     const page = req.query.page || 1;
     const limit = 3;

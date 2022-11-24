@@ -22,6 +22,7 @@
               id="id"
               name="id"
               placeholder="ID"
+              value="<%= query.id %>"
             />
           </div>
         </div>
@@ -37,6 +38,7 @@
               id="string"
               name="string"
               placeholder="String"
+              value="<%= query.string %>"
             />
           </div>
         </div>
@@ -56,6 +58,7 @@
               id="integer"
               name="integer"
               placeholder="Integer"
+              value="<%= query.integer %>"
             />
           </div>
         </div>
@@ -71,6 +74,7 @@
               id="float"
               name="float"
               placeholder="Float"
+              value="<%= query.float %>"
             />
           </div>
         </div>
@@ -86,6 +90,8 @@
               id="date"
               name="startdate"
               placeholder="Start Date"
+              value="<%= query.startdate %>"
+
             />
           </div>
         </div>
@@ -100,6 +106,7 @@
               id="date"
               name="enddate"
               placeholder="End Date"
+              value="<%= query.enddate %>"
             />
           </div>
         </div>
@@ -110,13 +117,12 @@
               type="checkbox"
               name="booleancheck"
               id="boolean"
-            /> Boolean</label
-          >
+            /> Boolean</label>
           <div class="col-sm-10">
             <select name="boolean" class="form-select" id="boolean">
-              <option value="" selected> Choose the boolean ...</option>
-              <option value=true>True</option>
-              <option value=false>False</option>
+              <option value="" selected disabled> Choose the boolean ...</option>
+              <option value="true"<%= query.boolean == 'true' ? 'selected' : '' %>>True</option>
+              <option value="false"<%= query.boolean == 'false' ? 'selected' : '' %>>False</option>
             </select>
           </div>
         </div>
@@ -150,7 +156,7 @@
             </th>
             <th>
               <a style="text-decoration: none; color: #000;" href="<%= url.replace(`sortBy=${query.sortBy}`,`sortBy=float`).replace(`sortMode=${query.sortMode}`,`sortMode=${query.sortMode == 'asc' ? 'desc' : 'asc'}`) %>">
-                Float &nbsp;<i class="fa-solid fa-<%= query.sortBy == 'float' ? query.sortMode == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
+                Date &nbsp;<i class="fa-solid fa-<%= query.sortBy == 'float' ? query.sortMode == 'asc' ? 'sort-up' : 'sort-down' : 'sort' %>"></i>
             </a>
             </th>
             <th>
