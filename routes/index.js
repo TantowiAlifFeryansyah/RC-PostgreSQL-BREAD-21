@@ -5,9 +5,12 @@ var moment = require('moment');
 /* GET home page. */
 module.exports = function (db) {
   router.get('/', function (req, res, next) {
+    const sortBY = req.query.sortBy || 'id'
+    const sortMode = req.query.sortMode || 'asc'
 
-    const url = req.url == '/' ? '/?page=1' : req.url
+    const url = req.url == '/' ? '/?page=1&sortBy=id&sortMode=asc' : req.url
 
+    // search
     const params = []
     let count = 1
     const values = []
@@ -53,6 +56,7 @@ module.exports = function (db) {
       values.push(req.query.booelan)
     }
 
+    // pagination
     const page = req.query.page || 1;
     const limit = 3;
     const offset = (page - 1) * limit
@@ -70,7 +74,10 @@ module.exports = function (db) {
       if (params.length > 0)
         sql += ` WHERE ${params.join(' AND ')}`
 
-      sql += ` ORDER BY id LIMIT $${count++} OFFSET $${count++} `
+      // sorting
+      sql+= ` ORDER BY ${sortBY} ${sortMode}`
+
+      sql += ` LIMIT $${count++} OFFSET $${count++} `
       db.query(sql, [...values, limit, offset], (err, data) => {
         if (err) return console.log(`ini ${err}`);
         res.render('list', { data: data.rows, moment, page, pages, offset, query: req.query, url });
@@ -101,7 +108,8 @@ module.exports = function (db) {
     const { id } = req.params
     db.query(`SELECT * FROM siswa WHERE id = $1`, [id], (err, data) => {
       if (err) return console.log('gagal ambil data', err);
-      res.render('edit', { data: data.rows, moment });
+      data.forEac
+      res.render('edit', { data: data.rows[0], moment });
     })
   });
 
