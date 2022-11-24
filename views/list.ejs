@@ -13,7 +13,7 @@
         <input type="hidden" name="sortMode" value="asc">
         <div class="row mb-3">
           <label for="id" class="col-sm-2 col-form-label"
-            ><input type="checkbox" name="idcheck" id="id" /> ID</label
+            ><input type="checkbox" name="idcheck" id="id" <%=query.idcheck=='on' ? 'checked' : '' %>/> ID</label
           >
           <div class="col-sm-10">
             <input
@@ -29,7 +29,7 @@
 
         <div class="row mb-3">
           <label for="string" class="col-sm-2 col-form-label"
-            ><input type="checkbox" name="stringcheck" id="string" /> String</label
+            ><input type="checkbox" name="stringcheck" id="string" <%=query.stringcheck=='on' ? 'checked' : '' %>/> String</label
           >
           <div class="col-sm-10">
             <input
@@ -49,7 +49,8 @@
               type="checkbox"
               name="integercheck"
               id="integer"
-            /> Integer</label
+              <%=query.integercheck=='on' ? 'checked' : '' %>
+              /> Integer</label
           >
           <div class="col-sm-10">
             <input
@@ -65,7 +66,7 @@
 
         <div class="row mb-3">
           <label for="float" class="col-sm-2 col-form-label"
-            ><input type="checkbox" name="floatcheck" id="float" /> Float</label
+            ><input type="checkbox" name="floatcheck" id="float" <%=query.floatcheck=='on' ? 'checked' : '' %>/> Float</label
           >
           <div class="col-sm-10">
             <input
@@ -81,7 +82,7 @@
 
         <div class="row mb-1">
           <label for="date" class="col-sm-2 col-form-label"
-            ><input type="checkbox" name="datecheck" id="date" /> Date</label
+            ><input type="checkbox" name="datecheck" id="date" <%=query.datecheck=='on' ? 'checked' : '' %>/> Date</label
           >
           <div class="col-sm-3">
             <input
@@ -117,6 +118,7 @@
               type="checkbox"
               name="booleancheck"
               id="boolean"
+              <%=query.booleancheck=='on' ? 'checked' : '' %>
             /> Boolean</label>
           <div class="col-sm-10">
             <select name="boolean" class="form-select" id="boolean">
